@@ -1,0 +1,57 @@
+:host {
+    --arrow: #014421;
+    --batwoman: #4b0082;
+    --black-lightning: #343434;
+    --constantine: #000000;
+    --dc-s-legends-of-tomorrow: #665d1e;
+    --freedom-fighters-the-ray: #000000;
+    --stargirl: #e5b73b;
+    --supergirl: #191970;
+    --superman-lois: #8e3a59;
+    --the-flash: #a40000;
+    --vixen: #000000;
+}
+
+table > tbody > tr.arrow:not(.no-color) > td {
+    background-color: var(--arrow);
+}
+
+table > tbody > tr.batwoman:not(.no-color) > td {
+    background-color: var(--batwoman);
+}
+
+table > tbody > tr.black-lightning:not(.no-color) > td {
+    background-color: var(--black-lightning);
+}
+
+table > tbody > tr.constantine:not(.no-color) > td {
+    background-color: var(--constantine);
+}
+
+table > tbody > tr.dc-s-legends-of-tomorrow:not(.no-color) > td {
+    background-color: var(--dc-s-legends-of-tomorrow);
+}
+
+table > tbody > tr.freedom-fighters-the-ray:not(.no-color) > td {
+    background-color: var(--freedom-fighters-the-ray);
+}
+
+table > tbody > tr.stargirl:not(.no-color) > td {
+    background-color: var(--stargirl);
+}
+
+table > tbody > tr.supergirl:not(.no-color) > td {
+    background-color: var(--supergirl);
+}
+
+table > tbody > tr.superman-lois:not(.no-color) > td {
+    background-color: var(--superman-lois);
+}
+
+table > tbody > tr.the-flash:not(.no-color) > td {
+    background-color: var(--the-flash);
+}
+
+table > tbody > tr.vixen:not(.no-color) > td {
+    background-color: var(--vixen);
+}

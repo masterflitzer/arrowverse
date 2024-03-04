@@ -1,0 +1,37 @@
+<template>
+    <header class="container-fluid">
+        <div
+            class="d-flex flex-column justify-content-center align-items-center gap-3"
+        >
+            <h1 id="top" class="text-center">Arrowverse</h1>
+            <div
+                class="d-flex flex-row justify-content-center align-items-center gap-1"
+            >
+                <!-- <av-series-filter></av-series-filter> -->
+                <!-- <av-date-filter></av-date-filter> -->
+                <av-color-option></av-color-option>
+            </div>
+        </div>
+    </header>
+    <main
+        class="container-fluid align-self-stretch d-flex flex-column flex-grow-1 mh-100"
+    >
+        <av-table></av-table>
+    </main>
+    <footer class="container-fluid">
+        <div
+            class="d-flex flex-row justify-content-center align-items-center gap-3"
+        >
+            <a
+                class="d-flex flex-row justify-content-center align-items-center gap-2 link-offset-2 link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+                href="http://github.com/masterflitzer/arrowverse"
+                referrerpolicy="no-referrer"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+                <i class="bi bi-github fs-3" aria-hidden="true"></i>
+                <span>GitHub</span>
+            </a>
+        </div>
+    </footer>
+</template>
