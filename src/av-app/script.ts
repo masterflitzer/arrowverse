@@ -9,9 +9,7 @@ export async function build() {
             super();
 
             if (template == null) {
-                throw new Error(
-                    `An error occured while fetching template\n${import.meta.url}`,
-                );
+                throw new Error(`An error occured while fetching template\n${import.meta.url}`);
             }
 
             const clone = template.content.cloneNode(true);

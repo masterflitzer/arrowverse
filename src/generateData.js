@@ -1,3 +1,5 @@
+// @ts-check
+
 // https://arrowverse.info/
 
 [
@@ -22,38 +24,32 @@
         .replace(/^-|-$/g, ""),
 );
 
-const table = document.querySelector("#episode-list") as HTMLTableElement;
+/** @type { HTMLTableElement | null } */
+const table = document.querySelector("#episode-list");
+if (table == null) {
+    throw new Error("No table found");
+}
 const columns = ["#", "Series", "Season/Episode", "Title", "Release", "Wiki"];
-const rows = Array.from(
-    table.querySelectorAll("tbody tr") as NodeListOf<HTMLTableRowElement>,
-);
+const rows = Array.from(table.querySelectorAll("tbody tr"));
 
 const result = rows.map((row) => {
-    const cells = Array.from(
-        row.querySelectorAll("td") as NodeListOf<HTMLTableCellElement>,
-    );
-    const data: { [index: string]: string } = {};
+    const cells = Array.from(row.querySelectorAll("td"));
+    /** @type { Record<string, string> } */
+    const data = {};
 
     for (const [j, key] of columns.entries()) {
-        let value: string | null = null;
+        /** @type { string | null } */
+        let value = null;
 
         if (j === 4) {
-            const someDate = cells[j].textContent;
-            if (someDate == null) continue;
-            const isoDate = new Date(Date.parse(someDate))
-                .toISOString()
-                .slice(0, 10);
-            if (isoDate == null) continue;
-            value = isoDate;
+            const date = cells[j].textContent;
+            value = date == null ? null : new Date(Date.parse(date)).toISOString().slice(0, 10);
         } else if (j === 5) {
-            const anchor = cells[j].querySelector("a") as HTMLAnchorElement;
-            const url = anchor.href;
-            if (url == null) continue;
-            value = url;
+            /** @type { HTMLAnchorElement | null } */
+            const anchor = cells[j].querySelector("a");
+            value = anchor?.href ?? null;
         } else {
-            const text = cells[j].textContent;
-            if (text == null) continue;
-            value = text;
+            value = cells[j].textContent;
         }
 
         if (value == null) continue;

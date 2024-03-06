@@ -1,8 +1,4 @@
-import {
-    fetchHtmlTemplate,
-    linkCssTemplate,
-    normalizeString,
-} from "../helpers.ts";
+import { fetchHtmlTemplate, linkCssTemplate, normalizeString } from "../helpers.ts";
 import type { JsonValue } from "../types.ts";
 
 export async function build(data: JsonValue) {
@@ -17,9 +13,7 @@ export async function build(data: JsonValue) {
             super();
 
             if (template == null) {
-                throw new Error(
-                    `An error occured while fetching template\n${import.meta.url}`,
-                );
+                throw new Error(`An error occured while fetching template\n${import.meta.url}`);
             }
 
             const shadow = this.attachShadow({ mode: "open" });
@@ -33,12 +27,9 @@ export async function build(data: JsonValue) {
 
         // TODO: use observed attributes to toggle color
         toggleColor(bool: boolean | null) {
-            const trList =
-                this.shadowRoot?.querySelectorAll("table > tbody > tr");
+            const trList = this.shadowRoot?.querySelectorAll("table > tbody > tr");
             if (trList == null) {
-                throw new Error(
-                    `An unexpected error occured\n${import.meta.url}`,
-                );
+                throw new Error(`An unexpected error occured\n${import.meta.url}`);
             }
 
             const className = "no-color";
@@ -61,39 +52,28 @@ export async function build(data: JsonValue) {
 
             const table = this.shadowRoot?.querySelector("table");
             if (table == null || table.tBodies.length === 0) {
-                throw new Error(
-                    `An unexpected error occured\n${import.meta.url}`,
-                );
+                throw new Error(`An unexpected error occured\n${import.meta.url}`);
             }
 
             const tbody = table.tBodies[0];
             const template = tbody.querySelector("template");
             if (template == null) {
-                throw new Error(
-                    `An unexpected error occured\n${import.meta.url}`,
-                );
+                throw new Error(`An unexpected error occured\n${import.meta.url}`);
             }
 
             for (const episode of data) {
-                if (
-                    typeof episode !== "object" ||
-                    Array.isArray(episode) ||
-                    episode == null
-                ) {
+                if (typeof episode !== "object" || Array.isArray(episode) || episode == null) {
                     continue;
                 }
 
                 const arrowverseIndex = episode["#"]?.toString() ?? "";
                 const arrowverseSeries = episode["Series"]?.toString() ?? "";
-                const arrowverseSeasonEpisode =
-                    episode["Season/Episode"]?.toString() ?? "";
+                const arrowverseSeasonEpisode = episode["Season/Episode"]?.toString() ?? "";
                 const arrowverseTitle = episode["Title"]?.toString() ?? "";
                 const arrowverseRelease = episode["Release"]?.toString() ?? "";
                 const arrowverseWiki = episode["Wiki"]?.toString() ?? "";
 
-                const clone = template.content.cloneNode(
-                    true,
-                ) as DocumentFragment | null;
+                const clone = template.content.cloneNode(true) as DocumentFragment | null;
                 if (clone == null) {
                     continue;
                 }
