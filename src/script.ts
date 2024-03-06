@@ -5,9 +5,7 @@ import * as ArrowverseSeriesFilter from "./av-series-filter/script.ts";
 import * as ArrowverseTable from "./av-table/script.ts";
 import { fetchJsonLogError } from "./helpers.ts";
 
-const data = await fetchJsonLogError(
-    new URL("/api/data.json", import.meta.url),
-);
+const data = await fetchJsonLogError(new URL("/api/data.json", import.meta.url));
 
 customElements.define("av-app", await ArrowverseApp.build());
 customElements.define("av-color-option", await ArrowverseColorOption.build());
