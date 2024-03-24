@@ -22,4 +22,10 @@ export default [
             reportUnusedDisableDirectives: true,
         },
     },
+    {
+        files: ["src/config.ts"],
+        linterOptions: {
+            noInlineConfig: false,
+        },
+    },
 ];

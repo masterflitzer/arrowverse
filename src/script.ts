@@ -1,14 +1,12 @@
-import * as ArrowverseApp from "./av-app/script.ts";
-import * as ArrowverseColorOption from "./av-color-option/script.ts";
-import * as ArrowverseDateFilter from "./av-date-filter/script.ts";
-import * as ArrowverseSeriesFilter from "./av-series-filter/script.ts";
-import * as ArrowverseTable from "./av-table/script.ts";
-import { fetchJsonLogError } from "./helpers.ts";
+import ArrowverseApp from "./av-app/script.ts";
+import ArrowverseColorOption from "./av-color-option/script.ts";
+import ArrowverseDateFilter from "./av-date-filter/script.ts";
+import ArrowverseSeriesFilter from "./av-series-filter/script.ts";
+import ArrowverseTable from "./av-table/script.ts";
 
-const data = await fetchJsonLogError(new URL("/api/data.json", import.meta.url));
-
-customElements.define("av-app", await ArrowverseApp.build());
-customElements.define("av-color-option", await ArrowverseColorOption.build());
-customElements.define("av-date-filter", await ArrowverseDateFilter.build());
-customElements.define("av-series-filter", await ArrowverseSeriesFilter.build());
-customElements.define("av-table", await ArrowverseTable.build(data));
+customElements.define("av-app", ArrowverseApp);
+customElements.define("av-table", ArrowverseTable);
+customElements.define("av-color-option", ArrowverseColorOption);
+customElements.define("av-series-filter", ArrowverseSeriesFilter);
+customElements.define("av-date-filter", ArrowverseDateFilter);
+customElements.upgrade(document.body);

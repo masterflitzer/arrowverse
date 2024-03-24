@@ -1,5 +1,13 @@
 import type { JsonResult, JsonValue } from "./types.ts";
 
+export function normalizeString(string: string) {
+    return string
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/--+/g, "-")
+        .replace(/^-|-$/g, "");
+}
+
 export function isValidJson(object: unknown) {
     if (
         typeof object === "string" ||
@@ -35,7 +43,7 @@ export async function fetchJson(url: URL) {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error("An unsuccessful response was received");
+            throw new Error("Unsuccessful response");
         }
         const data: unknown = await response.json();
         const json = toJson(data);
@@ -44,10 +52,7 @@ export async function fetchJson(url: URL) {
         }
         return { success: true, ok: json.ok } as const satisfies JsonResult;
     } catch (e) {
-        const error =
-            e instanceof Error
-                ? e
-                : new Error("An unexpected error occured while fetching json data");
+        const error = e instanceof Error ? e : new Error("Failed to fetch json data");
         return { success: false, err: error } as const satisfies JsonResult;
     }
 }
@@ -82,10 +87,20 @@ export function linkCssTemplate(template: HTMLTemplateElement | null, url: URL) 
     link.href = url.pathname;
 }
 
-export function normalizeString(string: string) {
-    return string
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/--+/g, "-")
-        .replace(/^-|-$/g, "");
+export function toBooleanOrNull(object: unknown) {
+    try {
+        if (typeof object === "boolean") {
+            return object;
+        }
+        const value = String(object).toLowerCase();
+        if (value === "true") {
+            return true;
+        }
+        if (value === "false") {
+            return false;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    return null;
 }
