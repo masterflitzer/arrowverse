@@ -1,5 +1,5 @@
 import Config from "../config.ts";
-import { fetchHtmlTemplate, toBooleanOrNull } from "../helpers.ts";
+import { fetchHtmlTemplate } from "../helpers.ts";
 
 const url = {
     html: new URL("./index.html", import.meta.url),
@@ -33,16 +33,15 @@ export default class ArrowverseApp extends HTMLElement {
         const avTable = this.#shadow.querySelector("av-table") as HTMLElement;
         const avColorOption = this.#shadow.querySelector("av-color-option") as HTMLElement;
 
-        const noColor = toBooleanOrNull(config.get("color"));
-        if (noColor != null) {
-            console.log(noColor);
-            void customElements.whenDefined("av-table").then(() => {
-                avTable.dataset.noColor = (!noColor).toString();
-            });
-            void customElements.whenDefined("av-color-option").then(() => {
-                avColorOption.dataset.checked = noColor.toString();
-            });
-        }
+        avTable.dataset.noColor = (!config.color).toString();
+
+        // set initial state from config in constructor
+        // then add event listeners to update config and table
+
+        const configColor = () => {
+            avTable.dataset.noColor = (!config.color).toString();
+            avColorOption.dataset.checked = config.color.toString();
+        };
 
         this.#shadow.addEventListener("av-color", ((e: CustomEvent<{ color: boolean }>) => {
             avTable.dataset.noColor = (!e.detail.color).toString();

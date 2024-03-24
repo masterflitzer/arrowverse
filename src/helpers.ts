@@ -34,16 +34,24 @@ export function isValidJson(object: unknown) {
 }
 
 export function toJson(object: unknown) {
-    return isValidJson(object)
-        ? ({ success: true, ok: object as JsonValue } as const satisfies JsonResult)
-        : ({ success: false, err: new Error("Invalid JSON") } as const satisfies JsonResult);
+    if (isValidJson(object)) {
+        return {
+            success: true,
+            ok: object as JsonValue,
+        } as const satisfies JsonResult;
+    } else {
+        return {
+            success: false,
+            err: new Error(`Invalid JSON\n${import.meta.url}`),
+        } as const satisfies JsonResult;
+    }
 }
 
 export async function fetchJson(url: URL) {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error("Unsuccessful response");
+            throw new Error(`Unsuccessful response\n${import.meta.url}`);
         }
         const data: unknown = await response.json();
         const json = toJson(data);
@@ -52,7 +60,8 @@ export async function fetchJson(url: URL) {
         }
         return { success: true, ok: json.ok } as const satisfies JsonResult;
     } catch (e) {
-        const error = e instanceof Error ? e : new Error("Failed to fetch json data");
+        const error =
+            e instanceof Error ? e : new Error(`Failed to fetch json data\n${import.meta.url}`);
         return { success: false, err: error } as const satisfies JsonResult;
     }
 }
